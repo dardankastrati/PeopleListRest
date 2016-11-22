@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>#{msg['html.page.title.suppPerson']}</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="main.xhtml">
+            <ui:define name="top">#{msg['listPerson']}</ui:define>
+
+            <ui:define name="content">
+
+                <h:form>
+                    <h:selectOneMenu id="lovPeoples" value="#{peopleListBean.person}" >
+                        <f:converter binding="#{personLOVConverter}" />
+                        <f:selectItems value="#{peopleListBean.peopleList}" var="people" itemLabel="#{people.firstName}" />
+                    </h:selectOneMenu> 
+
+                    <h:commandButton value="Supprimer" action="#{peopleListBean.delPerson()}" />
+                </h:form>
+
+            </ui:define>
+
+            <ui:define name="bottom">
+                <p>Mon bas de page :)</p>
+            </ui:define>
+            
+        </ui:composition>
+    </h:body>
+</html>
+
