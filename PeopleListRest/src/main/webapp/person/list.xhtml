@@ -22,6 +22,12 @@
                 <f:facet name="header">Last name</f:facet>
                     #{person.lastName} 
             </h:column>
+            <h:column>
+                <h:form>
+                    <h:commandButton action="#{personBean.delete(person)}" value="delete">
+                    </h:commandButton>
+                </h:form>
+            </h:column> 
         </h:dataTable>
     </h:body>
 </html>

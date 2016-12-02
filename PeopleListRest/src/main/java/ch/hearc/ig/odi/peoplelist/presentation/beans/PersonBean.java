@@ -72,5 +72,24 @@ public class PersonBean implements Serializable {
             currentPerson = services.getPerson(new Long(currentPersonID));
         }
     }
-
+    
+    /**
+     * Save current editing person
+     * @param Person person to update
+     * @return link to redirect in list page
+     */
+    public String save(Person person) {
+        services.savePerson(person.getGender(), person.getFirstName(), person.getLastName(), person.isMarried(), person.getBirthDate());
+        return "list.xhtml?faces-redirect=true";
+    }
+    
+    /**
+     * Delete person
+     * @param Person person to delete
+     * @return link to redirect into list page
+     */
+    public String delete(Person person){
+        services.deletePerson(person);
+        return "list.xhtml?faces-redirect=true";
+    }
 }
