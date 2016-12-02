@@ -1,0 +1,15 @@
+<pretty-config xmlns="http://ocpsoft.org/schema/rewrite-config-prettyfaces" 
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+               xsi:schemaLocation="http://ocpsoft.org/schema/rewrite-config-prettyfaces
+                      http://ocpsoft.org/xml/ns/prettyfaces/rewrite-config-prettyfaces.xsd">
+
+    <url-mapping>
+        <pattern value="/person/" />
+        <view-id value="/faces/person/list.xhtml" />
+    </url-mapping>
+    <url-mapping>
+        <pattern value="/person/#{/[0-9]+/ id}" />
+        <view-id value="/faces/person/edit.xhtml" />
+    </url-mapping>
+
+</pretty-config>
