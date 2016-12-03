@@ -2,34 +2,116 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
-        <title>Facelet Title</title>
+        <title>#{msg['html.page.person.edit.title']}</title>
     </h:head>
     <f:metadata>
         <f:viewParam name="id" value="#{personBean.currentPersonID}"/>
         <f:viewAction action="#{personBean.initPerson}"></f:viewAction>
     </f:metadata>
     <h:body>
-        <h1>Customer details</h1>
-        <h:form>
-            <h:panelGrid columns="2">
-                <h:outputLabel value="ID" for="id"/>
-                <h:outputText id="id" value="#{personBean.currentPerson.id}"/>
-                <h:outputLabel value="First name" for="firstName"/>
-                <h:inputText id="firstName" value="#{personBean.currentPerson.firstName}"/>
+        <ui:composition template="../main.xhtml">
 
-                <h:outputLabel value="Last name" for="lastName"/>
-                <h:inputText value="#{personBean.currentPerson.lastName}"/>
+            <ui:define name="content">
 
-                <h:commandButton action="#{personBean.save(personBean.currentPerson)}" value="save">
-                </h:commandButton>
-                &nbsp;
-                <h:commandButton action="#{personBean.delete(personBean.currentPerson)}" value="delete">
-                </h:commandButton>
-            </h:panelGrid>
-        </h:form>
+                <div class="container">
 
-        <h:link outcome="list.xhtml?faces-redirect=true" value="home"/>
+                    <h:panelGrid rendered="#{personBean.currentPerson.id != null}">
+                        <h1>#{msg['html.page.person.edit.title.update']}</h1>
+                        <h:form>
+                            <div class="form-group">
+                                <h:outputLabel value="#{msg['html.page.person.form.id']}" for="id"/>
+                                <h:outputText id="id" class="form-control" value="#{personBean.currentPerson.id}"/>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel value="#{msg['html.page.person.form.gender']}" for="gender"/>
+                                <h:selectOneMenu class="form-control" id="gender" value="#{personBean.currentPerson.gender}" required="true">
+                                    <f:selectItem itemValue="male" itemLabel="male" />
+                                    <f:selectItem itemValue="female" itemLabel="female" />
+                                </h:selectOneMenu>
+                            </div>
+
+                            <div class="form-group">
+                                <h:outputLabel value="#{msg['html.page.person.form.firstName']}" for="firstName"/>
+                                <h:inputText id="firstName" class="form-control" value="#{personBean.currentPerson.firstName}" title="Prénom" required="true" requiredMessage="#{msg['html.page.person.form.firstName.error']}" maxlength="20" />
+                            </div>
+
+                            <div class="form-group">
+                                <h:outputLabel value="#{msg['html.page.person.form.lastName']}" for="lastName"/>
+                                <h:inputText id="lastName" class="form-control" value="#{personBean.currentPerson.lastName}" title="Nom" required="true" requiredMessage="#{msg['html.page.person.form.lastName.error']}" maxlength="20" />
+                            </div>
+
+                            <div class="form-group">
+                                <h:outputLabel value="#{msg['html.page.person.form.married']}" for="married"/>
+                                <h:selectOneRadio id="married" value="#{personBean.currentPerson.married}">
+                                    <f:selectItem class="radio-inline" itemValue="#{true}" itemLabel="Oui" />
+                                    <f:selectItem class="radio-inline" itemValue="#{false}" itemLabel="Non" />
+                                </h:selectOneRadio>
+                            </div>
+
+                            <div class="form-group">
+                                <h:outputLabel value="#{msg['html.page.person.form.birthDay']}" for="birthDay"/>
+                                <h:inputText id="birthDay" value="#{personBean.currentPerson.birthDate}" title="Nom" required="true" requiredMessage="#{msg['html.page.person.form.birthDay.error']}" maxlength="20" >  
+                                    <f:convertDateTime pattern="dd.mm.yyyy"/>  
+                                </h:inputText>
+                            </div>
+                            
+                            <h:commandButton class="btn btn-primary" action="#{personBean.update(personBean.currentPerson)}" value="#{msg['html.page.person.form.button.update']}">
+                            </h:commandButton>
+                            &nbsp;
+                            <h:commandButton class="btn btn-danger" action="#{personBean.delete(personBean.currentPerson)}" value="#{msg['html.page.person.form.button.delete']}">
+                            </h:commandButton>
+                        </h:form>
+                    </h:panelGrid>
+
+                    <h:panelGrid rendered="#{personBean.currentPerson.id == null}">
+                        <h1>#{msg['html.page.person.edit.title.add']}</h1>
+                        <h:form>
+                            <div class="form-group">
+                                <h:outputLabel value="#{msg['html.page.person.form.gender']}" for="gender"/>
+                                <h:selectOneMenu class="form-control" id="gender" value="#{personBean.currentPerson.gender}" required="true">
+                                    <f:selectItem itemValue="male" itemLabel="male" />
+                                    <f:selectItem itemValue="female" itemLabel="female" />
+                                </h:selectOneMenu>
+                            </div>
+
+                            <div class="form-group">
+                                <h:outputLabel value="#{msg['html.page.person.form.firstName']}" for="firstName"/>
+                                <h:inputText id="firstName" class="form-control" value="#{personBean.currentPerson.firstName}" title="Prénom" required="true" requiredMessage="#{msg['html.page.person.form.firstName.error']}" maxlength="20" />
+                            </div>
+
+                            <div class="form-group">
+                                <h:outputLabel value="#{msg['html.page.person.form.lastName']}" for="lastName"/>
+                                <h:inputText id="lastName" class="form-control" value="#{personBean.currentPerson.lastName}" title="Nom" required="true" requiredMessage="#{msg['html.page.person.form.lastName.error']}" maxlength="20" />
+                            </div>
+
+                            <div class="form-group">
+                                <h:outputLabel value="#{msg['html.page.person.form.married']}" for="married"/>
+                                <h:selectOneRadio id="married" value="#{personBean.currentPerson.married}">
+                                    <f:selectItem class="radio-inline" itemValue="#{true}" itemLabel="Oui" />
+                                    <f:selectItem class="radio-inline" itemValue="#{false}" itemLabel="Non" />
+                                </h:selectOneRadio>
+                            </div>
+
+                            <div class="form-group">
+                                <h:outputLabel value="#{msg['html.page.person.form.birthDay']}" for="birthday"/>
+                                <h:inputText id="birthday" value="#{personBean.currentPerson.birthDate}" title="Nom" required="true" requiredMessage="#{msg['html.page.person.form.birthDay.error']}" maxlength="20" >  
+                                    <f:convertDateTime pattern="dd.mm.yyyy"/>  
+                                </h:inputText>
+                            </div>
+
+                            <h:commandButton action="#{personBean.save(personBean.currentPerson)}" value="#{msg['html.page.person.form.button.add']}">
+                            </h:commandButton>
+
+                        </h:form>
+                    </h:panelGrid>
+
+                </div>
+
+            </ui:define>
+
+        </ui:composition>
     </h:body>
 </html>
