@@ -5,7 +5,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
-        <title>Facelet Title</title>
+        <title>#{msg['html.page.person.edit.title']}</title>
     </h:head>
     <f:metadata>
         <f:viewParam name="id" value="#{personBean.currentPersonID}"/>
@@ -18,37 +18,15 @@
 
                 <div class="container">
 
-                    <h:link outcome="list.xhtml?faces-redirect=true" value="home"/>
-                    <br />
-
-                    <h1>Person details</h1>
-
-                    <h:panelGrid rendered="#{personBean.currentPerson.id != null}" columns="2">
+                    <h:panelGrid rendered="#{personBean.currentPerson.id != null}">
+                        <h1>#{msg['html.page.person.edit.title.update']}</h1>
                         <h:form>
                             <div class="form-group">
-                                <h:outputLabel value="ID" for="id"/>
+                                <h:outputLabel value="#{msg['html.page.person.form.id']}" for="id"/>
                                 <h:outputText id="id" class="form-control" value="#{personBean.currentPerson.id}"/>
                             </div>
                             <div class="form-group">
-                                <h:outputLabel value="First name" for="firstName"/>
-                                <h:inputText id="firstName" class="form-control" value="#{personBean.currentPerson.firstName}"/>
-                            </div>
-                            <div class="form-group">
-                                <h:outputLabel value="Last name" for="lastName"/>
-                                <h:inputText id="lastName" class="form-control" value="#{personBean.currentPerson.lastName}"/>
-                            </div>
-                            <h:commandButton class="btn btn-default" action="#{personBean.update(personBean.currentPerson)}" value="save">
-                            </h:commandButton>
-                            &nbsp;
-                            <h:commandButton class="btn btn-default" action="#{personBean.delete(personBean.currentPerson)}" value="delete">
-                            </h:commandButton>
-                        </h:form>
-                    </h:panelGrid>
-
-                    <h:panelGrid rendered="#{personBean.currentPerson.id == null}">
-                        <h:form>
-                            <div class="form-group">
-                                <h:outputLabel value="Gender" for="gender"/>
+                                <h:outputLabel value="#{msg['html.page.person.form.gender']}" for="gender"/>
                                 <h:selectOneMenu class="form-control" id="gender" value="#{personBean.currentPerson.gender}" required="true">
                                     <f:selectItem itemValue="male" itemLabel="male" />
                                     <f:selectItem itemValue="female" itemLabel="female" />
@@ -56,17 +34,17 @@
                             </div>
 
                             <div class="form-group">
-                                <h:outputLabel value="First name" for="firstName"/>
-                                <h:inputText id="firstName" class="form-control" value="#{personBean.currentPerson.firstName}" title="Prénom" required="true" requiredMessage="" maxlength="20" />
+                                <h:outputLabel value="#{msg['html.page.person.form.firstName']}" for="firstName"/>
+                                <h:inputText id="firstName" class="form-control" value="#{personBean.currentPerson.firstName}" title="Prénom" required="true" requiredMessage="#{msg['html.page.person.form.firstName.error']}" maxlength="20" />
                             </div>
 
                             <div class="form-group">
-                                <h:outputLabel value="Last name" for="lastName"/>
-                                <h:inputText id="lastName" class="form-control" value="#{personBean.currentPerson.lastName}" title="Nom" required="true" requiredMessage="" maxlength="20" />
+                                <h:outputLabel value="#{msg['html.page.person.form.lastName']}" for="lastName"/>
+                                <h:inputText id="lastName" class="form-control" value="#{personBean.currentPerson.lastName}" title="Nom" required="true" requiredMessage="#{msg['html.page.person.form.lastName.error']}" maxlength="20" />
                             </div>
 
                             <div class="form-group">
-                                <h:outputLabel value="Married" for="married"/>
+                                <h:outputLabel value="#{msg['html.page.person.form.married']}" for="married"/>
                                 <h:selectOneRadio id="married" value="#{personBean.currentPerson.married}">
                                     <f:selectItem class="radio-inline" itemValue="#{true}" itemLabel="Oui" />
                                     <f:selectItem class="radio-inline" itemValue="#{false}" itemLabel="Non" />
@@ -74,13 +52,57 @@
                             </div>
 
                             <div class="form-group">
-                                <h:outputLabel value="Married" for="birthDate"/>
-                                <h:inputText id="birthDate" value="#{personBean.currentPerson.birthDate}" title="Nom" required="true" requiredMessage="" maxlength="20" >  
+                                <h:outputLabel value="#{msg['html.page.person.form.birthDay']}" for="birthDay"/>
+                                <h:inputText id="birthDay" value="#{personBean.currentPerson.birthDate}" title="Nom" required="true" requiredMessage="#{msg['html.page.person.form.birthDay.error']}" maxlength="20" >  
+                                    <f:convertDateTime pattern="dd.mm.yyyy"/>  
+                                </h:inputText>
+                            </div>
+                            
+                            <h:commandButton class="btn btn-primary" action="#{personBean.update(personBean.currentPerson)}" value="#{msg['html.page.person.form.button.update']}">
+                            </h:commandButton>
+                            &nbsp;
+                            <h:commandButton class="btn btn-danger" action="#{personBean.delete(personBean.currentPerson)}" value="#{msg['html.page.person.form.button.delete']}">
+                            </h:commandButton>
+                        </h:form>
+                    </h:panelGrid>
+
+                    <h:panelGrid rendered="#{personBean.currentPerson.id == null}">
+                        <h1>#{msg['html.page.person.edit.title.add']}</h1>
+                        <h:form>
+                            <div class="form-group">
+                                <h:outputLabel value="#{msg['html.page.person.form.gender']}" for="gender"/>
+                                <h:selectOneMenu class="form-control" id="gender" value="#{personBean.currentPerson.gender}" required="true">
+                                    <f:selectItem itemValue="male" itemLabel="male" />
+                                    <f:selectItem itemValue="female" itemLabel="female" />
+                                </h:selectOneMenu>
+                            </div>
+
+                            <div class="form-group">
+                                <h:outputLabel value="#{msg['html.page.person.form.firstName']}" for="firstName"/>
+                                <h:inputText id="firstName" class="form-control" value="#{personBean.currentPerson.firstName}" title="Prénom" required="true" requiredMessage="#{msg['html.page.person.form.firstName.error']}" maxlength="20" />
+                            </div>
+
+                            <div class="form-group">
+                                <h:outputLabel value="#{msg['html.page.person.form.lastName']}" for="lastName"/>
+                                <h:inputText id="lastName" class="form-control" value="#{personBean.currentPerson.lastName}" title="Nom" required="true" requiredMessage="#{msg['html.page.person.form.lastName.error']}" maxlength="20" />
+                            </div>
+
+                            <div class="form-group">
+                                <h:outputLabel value="#{msg['html.page.person.form.married']}" for="married"/>
+                                <h:selectOneRadio id="married" value="#{personBean.currentPerson.married}">
+                                    <f:selectItem class="radio-inline" itemValue="#{true}" itemLabel="Oui" />
+                                    <f:selectItem class="radio-inline" itemValue="#{false}" itemLabel="Non" />
+                                </h:selectOneRadio>
+                            </div>
+
+                            <div class="form-group">
+                                <h:outputLabel value="#{msg['html.page.person.form.birthDay']}" for="birthday"/>
+                                <h:inputText id="birthday" value="#{personBean.currentPerson.birthDate}" title="Nom" required="true" requiredMessage="#{msg['html.page.person.form.birthDay.error']}" maxlength="20" >  
                                     <f:convertDateTime pattern="dd.mm.yyyy"/>  
                                 </h:inputText>
                             </div>
 
-                            <h:commandButton action="#{personBean.save(personBean.currentPerson)}" value="add">
+                            <h:commandButton action="#{personBean.save(personBean.currentPerson)}" value="#{msg['html.page.person.form.button.add']}">
                             </h:commandButton>
 
                         </h:form>

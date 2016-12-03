@@ -8,6 +8,10 @@
         <view-id value="/faces/person/list.xhtml" />
     </url-mapping>
     <url-mapping>
+        <pattern value="/person/list.xhtml" />
+        <view-id value="/faces/person/list.xhtml" />
+    </url-mapping>
+    <url-mapping>
         <pattern value="/person/edit.xhtml" />
         <view-id value="/faces/person/edit.xhtml" />
     </url-mapping>

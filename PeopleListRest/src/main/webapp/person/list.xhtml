@@ -5,7 +5,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
-        <title>Facelet Title</title>
+        <title>#{msg['html.page.person.list.title']}</title>
     </h:head>
     <h:body>
         <ui:composition template="../main.xhtml">
@@ -13,24 +13,25 @@
             <ui:define name="content">
 
                 <div class="container">
-                    <h:dataTable value="#{personBean.peopleList}" var="person">
+                    <h:dataTable class="table table-hover" value="#{personBean.peopleList}" var="person">
                         <h:column>
-                            <f:facet name="header">ID</f:facet>
+                            <f:facet name="header">#{msg['html.page.person.form.id']}</f:facet>
                             <h:link outcome="edit.xhtml" value="#{person.id}">
                                 <f:param name="id" value="#{person.id}"/>
                             </h:link>
                         </h:column> 
                         <h:column>
-                            <f:facet name="header">First name</f:facet>
+                            <f:facet name="header">#{msg['html.page.person.form.firstName']}</f:facet>
                                 #{person.firstName}
                         </h:column>
                         <h:column>
-                            <f:facet name="header">Last name</f:facet>
+                            <f:facet name="header">#{msg['html.page.person.form.lastName']}</f:facet>
                                 #{person.lastName} 
                         </h:column>
                         <h:column>
+                            <f:facet name="header">#{msg['html.page.person.form.action']}</f:facet>
                             <h:form>
-                                <h:commandButton action="#{personBean.delete(person)}" value="delete">
+                                <h:commandButton class="btn btn-danger" action="#{personBean.delete(person)}" value="#{msg['html.page.person.form.button.delete']}">
                                 </h:commandButton>
                             </h:form>
                         </h:column> 

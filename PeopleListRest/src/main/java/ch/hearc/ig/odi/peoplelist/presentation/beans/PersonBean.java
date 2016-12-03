@@ -27,6 +27,8 @@ public class PersonBean implements Serializable {
     private int currentPersonID;
     
     public PersonBean() {
+        people = new HashMap<>();
+        currentPerson = new Person();
     }
 
     public Map<Long, Person> getPeople() {
