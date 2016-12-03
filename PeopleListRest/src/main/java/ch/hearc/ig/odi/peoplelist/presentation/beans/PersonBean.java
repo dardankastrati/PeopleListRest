@@ -74,8 +74,19 @@ public class PersonBean implements Serializable {
     }
     
     /**
-     * Save current editing person
+     * update current editing person
      * @param Person person to update
+     * @return link to redirect in list page
+     */
+    public String update(Person person) {
+        Person p = services.getPerson(person.getId());
+        p = currentPerson;
+        return "list.xhtml?faces-redirect=true";
+    }
+    
+    /**
+     * Save current editing person
+     * @param Person person to save
      * @return link to redirect in list page
      */
     public String save(Person person) {
